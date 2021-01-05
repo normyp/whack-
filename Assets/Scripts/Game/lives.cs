@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class lives : MonoBehaviour {
 
-	public int _lives = 1;
+	public int _lives;
 
 	// Use this for initialization
 	void Start () {

@@ -9,12 +9,6 @@ public class spawner : MonoBehaviour {
 
     public List<GameObject> poofs = new List<GameObject>();
     
-    public GameObject gameMan;
-
-    public GameObject poofSprite;
-
-    public GameObject whack;
-
     public float timer = 0.0f;
 
     public int selectedMole;
@@ -24,8 +18,6 @@ public class spawner : MonoBehaviour {
     public int score;
 
     bool spawned = false;
-
-    bool onetime = false;  
 
     GameObject other;
 
@@ -52,7 +44,6 @@ public class spawner : MonoBehaviour {
                 moles[selectedMole].SetActive(true);
                 //poofs[selectedMole].SetActive(true);
                 spawned = true;
-                onetime = false;
             }
     }
 
@@ -62,7 +53,6 @@ public class spawner : MonoBehaviour {
         GameObject gameMan = GameObject.FindWithTag("gameMan"); //Creates an instance of game manager so that the component lives can be used
         lives player = gameMan.GetComponent<lives>(); //Creates an instance of the lives script so that lives can be accessed
         player._lives--; 
-        onetime = true;
     }
 
 	// Update is called once per frame
@@ -86,25 +76,15 @@ public class spawner : MonoBehaviour {
                 moles[selectedMole].SetActive(false);
                 int oldMole = selectedMole;
                
-
+                LoseLife();
                 selectedMole = Random.Range(0, 9);
+
 
             if (selectedMole != oldMole) { 
                 moles[selectedMole].SetActive(true);
             }
                
                 timer = 0.0f;
-                //Now lose a life.
-                if(!onetime)
-                {
-                    LoseLife();
-                }
-	        	//Decrement lives
-	        	else if (timer >= 3.5f)
-	       		{
-	        		timer = 0.0f;
-	        		spawned = false;
-	        	}
 	        }
 	        timer += Time.deltaTime;
 	        //Debug.Log("Timer is at: " +  timer);
