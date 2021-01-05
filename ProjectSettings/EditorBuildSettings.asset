@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Whack!.unity
     guid: 48e20bb868a473947812bc47c53b6767
+  - enabled: 1
+    path: Assets/DeathScreen.unity
+    guid: 68610a49eabaaeb4fb8e41dab9444da8
   m_configObjects: {}

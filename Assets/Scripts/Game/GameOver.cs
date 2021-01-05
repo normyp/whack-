@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class gameover : MonoBehaviour {
 
 	GameObject gameMan;
-	//public GameObject deathScreen;
 	// Use this for initialization
 	void Start () {
 		
@@ -19,7 +19,7 @@ public class gameover : MonoBehaviour {
 
        	if(life == 0)
        	{
-       		//deathScreen.SetActive(true);
+       		SceneManager.LoadScene("DeathScreen");
        	}
 	}
 }

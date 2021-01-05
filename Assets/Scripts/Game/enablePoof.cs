@@ -21,7 +21,7 @@ public class enablePoof : MonoBehaviour
     {
         mole.SetActive(false);
         this.gameObject.SetActive(true);
-        Debug.Log("Poofed");
+        //Debug.Log("Poofed");
         anim.Play("Poof", 0, 0.0f); //play animation once
         //Thread.Sleep(5000);
         //this.gameObject.SetActive(false);
