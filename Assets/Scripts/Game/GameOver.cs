@@ -19,7 +19,7 @@ public class gameover : MonoBehaviour {
 
        	if(life == 0)
        	{
-       		SceneManager.LoadScene("DeathScreen");
+       		//SceneManager.LoadScene("DeathScreen");
        	}
 	}
 }
