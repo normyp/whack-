@@ -3,17 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class spawner : MonoBehaviour {
+public class gamelogic : MonoBehaviour {
 
     public List<GameObject> moles = new List<GameObject>();
-
-    public List<GameObject> poofs = new List<GameObject>();
     
     public float timer = 0.0f;
 
     public int selectedMole;
-
-    public int x, y;
 
     public int score;
 
@@ -30,16 +26,11 @@ public class spawner : MonoBehaviour {
             moles[x].SetActive(false);
         }
 
-        for(int x = 0; x <= 8; x++) 
-        {
-            poofs.Add(GameObject.FindGameObjectWithTag("poof"));
-            //poofs[y].SetActive(false);
-        }
-
         if (!spawned) //Whilst nothing has been spawned
             {
                 //Spawn moles
-                selectedMole = Random.Range(0, 9);
+                //selectedMole = Random.Range(0, 9);
+                selectedMole = 3;
                 //Debug.Log("Selected mole is " + selectedMole); 
                 moles[selectedMole].SetActive(true);
                 //poofs[selectedMole].SetActive(true);
@@ -65,7 +56,8 @@ public class spawner : MonoBehaviour {
                 other.GetComponent<hit>().whacked = false;
                 timer = 0.0f;
                 //Now spawn new mole
-                selectedMole = Random.Range(0, 9);
+                //selectedMole = Random.Range(0, 9);
+                selectedMole = 3;
                 moles[selectedMole].GetComponent<hit>().poof.SetActive(false);
                 moles[selectedMole].SetActive(true);
                 
@@ -73,16 +65,12 @@ public class spawner : MonoBehaviour {
             //Mole missed
 	    else if (timer >= 2.0f) //If whacked is false
 	        {
-                moles[selectedMole].SetActive(false);
-                int oldMole = selectedMole;
-               
+                moles[selectedMole].SetActive(false);      
+                         
                 LoseLife();
-                selectedMole = Random.Range(0, 9);
-
-
-            if (selectedMole != oldMole) { 
+                selectedMole = 3;
+                //selectedMole = Random.Range(0, 9);
                 moles[selectedMole].SetActive(true);
-            }
                
                 timer = 0.0f;
 	        }

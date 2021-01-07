@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class rsLevel : MonoBehaviour {
+public class rslevel : MonoBehaviour {
 
 	public float timer = 0.0f;
 

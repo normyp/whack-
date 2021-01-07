@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class leaderboardButton : MonoBehaviour
+public class changescenebutton : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

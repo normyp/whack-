@@ -10,14 +10,13 @@ public class hit : MonoBehaviour {
 
     void OnMouseDown()
     {
-        GameObject moleMan = GameObject.FindWithTag("man");//Creates an instance of mole manager so that the component spawner can be used
-        spawner spawn = moleMan.GetComponent<spawner>(); //Creates an instance of the spawner script so that score can be accessed
+        GameObject moleMan = GameObject.FindWithTag("man");//Creates an instance of mole manager so that the component gamelogic can be used
+        gamelogic game = moleMan.GetComponent<gamelogic>(); //Creates an instance of the gamelogic script so that score can be accessed
 
         //missed = false;
-        poof.GetComponent<enablePoof>().start_anim();
+        poof.GetComponent<enablepoof>().start_anim();
 
-        //gameObject.SetActive(false);
-        spawn.score++;
+        game.score++;
         whacked = true;
 
 
