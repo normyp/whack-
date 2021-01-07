@@ -18,7 +18,6 @@ public class enablepoof : MonoBehaviour
     public void start_anim()
     {
         mole.SetActive(false);
-        Debug.Log("Mole hit!");
         this.gameObject.SetActive(true);
         anim.Play("Poof", 0, 0.0f); //play animation once
     }

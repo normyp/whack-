@@ -13,6 +13,7 @@ public class gamelogic : MonoBehaviour {
     public int selectedMole;
 
     public int score;
+    public int oldMole;
 
     bool spawned = false;
 
@@ -48,12 +49,12 @@ public class gamelogic : MonoBehaviour {
 
     private int newnumber()
     {
-        var exclude = new HashSet<int>() {selectedMole};
-        var range = Enumerable.Range(0, 9).Where(i => !exclude.Contains(i));
-        
-        var rand = new System.Random();
-        int index = rand.Next(0, 9 - exclude.Count);
-        return range.ElementAt(index);
+        oldMole = selectedMole;
+        while(oldMole == selectedMole){
+            Debug.Log("New mole chosen");
+            selectedMole = Random.Range(0, 9);
+        }
+        return selectedMole;
     }
 
 	// Update is called once per frame
