@@ -1,0 +1,13 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/projectSettingsUpdater.xml
+/modules.xml
+/.idea.Whack! Project.iml
+/contentModel.xml
+# Datasource local storage ignored files
+/../../../../../../../:\Home-made games\Whack - Copy\Whack! Project\.idea\.idea.Whack! Project\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/

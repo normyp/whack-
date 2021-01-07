@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 
 public class gamelogic : MonoBehaviour {
@@ -29,8 +30,7 @@ public class gamelogic : MonoBehaviour {
         if (!spawned) //Whilst nothing has been spawned
             {
                 //Spawn moles
-                //selectedMole = Random.Range(0, 9);
-                selectedMole = 3;
+                selectedMole = newnumber();
                 //Debug.Log("Selected mole is " + selectedMole); 
                 moles[selectedMole].SetActive(true);
                 //poofs[selectedMole].SetActive(true);
@@ -46,18 +46,27 @@ public class gamelogic : MonoBehaviour {
         player._lives--; 
     }
 
+    private int newnumber()
+    {
+        var exclude = new HashSet<int>() {selectedMole};
+        var range = Enumerable.Range(0, 9).Where(i => !exclude.Contains(i));
+        
+        var rand = new System.Random();
+        int index = rand.Next(0, 9 - exclude.Count);
+        return range.ElementAt(index);
+    }
+
 	// Update is called once per frame
 	void Update () {
         other = moles[selectedMole];
 
         if (other.GetComponent<hit>().whacked == true) //If whacked is true
             {
-                Debug.Log("Spawned a mole");
                 other.GetComponent<hit>().whacked = false;
                 timer = 0.0f;
+                
                 //Now spawn new mole
-                //selectedMole = Random.Range(0, 9);
-                selectedMole = 3;
+                selectedMole = newnumber();
                 moles[selectedMole].GetComponent<hit>().poof.SetActive(false);
                 moles[selectedMole].SetActive(true);
                 
@@ -68,8 +77,7 @@ public class gamelogic : MonoBehaviour {
                 moles[selectedMole].SetActive(false);      
                          
                 LoseLife();
-                selectedMole = 3;
-                //selectedMole = Random.Range(0, 9);
+                selectedMole = newnumber();
                 moles[selectedMole].SetActive(true);
                
                 timer = 0.0f;
