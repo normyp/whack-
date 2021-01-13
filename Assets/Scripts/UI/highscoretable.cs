@@ -9,16 +9,18 @@ public class highscoretable : MonoBehaviour
     private Transform entryTemplate;
     private List<HighscoreEntry> highscoreEntryList;
     private List<Transform> highscoreEntryTransformList;
+    private int m_score;
     private void Awake()
     {
         entryContainer = transform.Find("highscoreEntryContainer");
         entryTemplate = entryContainer.Find("highscoreEntryTemplate");
+        m_score = GameObject.Find("scoreman").GetComponent<scoremanager>().s_score;
         
         entryTemplate.gameObject.SetActive(false);
 
         highscoreEntryList = new List<HighscoreEntry>()
         {
-            new HighscoreEntry {score = 521854, name = "PNO"},
+            new HighscoreEntry {score = m_score, name = "PNO"},
             new HighscoreEntry {score = 358462, name = "AAA"},
             new HighscoreEntry {score = 7000, name = "ANN"},
             new HighscoreEntry {score = 5, name = "CAT"},
@@ -73,11 +75,11 @@ public class highscoretable : MonoBehaviour
             
         entryTransform.Find("posText").GetComponent<Text>().text = rankString;
             
-        //int score = highscoreEntry.score;
-        int score = GameObject.Find("scoreman").GetComponent<scoremanager>().s_score;
-        Debug.Log("Score is " + score);
+        int score = highscoreEntry.score;
+        //int score = GameObject.Find("scoreman").GetComponent<scoremanager>().s_score;
+        //Debug.Log("Score is " + score);
 
-        //entryTransform.Find("scoreText").GetComponent<Text>().text = score.ToString();
+        entryTransform.Find("scoreText").GetComponent<Text>().text = score.ToString();
 
         string name = highscoreEntry.name;
 
