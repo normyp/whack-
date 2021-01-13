@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using UnityEngine.SceneManagement;
 
 
 public class gamelogic : MonoBehaviour {
@@ -20,7 +22,7 @@ public class gamelogic : MonoBehaviour {
     GameObject other;
 
     void Start()
-    {        
+    {
         for(int x = 0; x <= 8; x++)
         {
             //Adds all the spawns to the list
