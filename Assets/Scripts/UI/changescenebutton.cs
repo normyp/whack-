@@ -11,7 +11,14 @@ public class changescenebutton : MonoBehaviour
     {
     }
 
-    public void ChangeScene(string sceneName){
+    public void ChangeScene(string sceneName)
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name == "Leaderboard" && GameObject.Find("scoreman") != null)
+        {
+            GameObject.Find("scoreman").GetComponent<scoremanager>().clicked = true;
+        }
+
         SceneManager.LoadScene(sceneName);
     }
 

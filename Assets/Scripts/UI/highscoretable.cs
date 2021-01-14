@@ -14,8 +14,15 @@ public class highscoretable : MonoBehaviour
     {
         entryContainer = transform.Find("highscoreEntryContainer");
         entryTemplate = entryContainer.Find("highscoreEntryTemplate");
-        m_score = GameObject.Find("scoreman").GetComponent<scoremanager>().s_score;
-        
+        if (GameObject.Find("scoreman") == null)
+        {
+            m_score = 6181818;
+        }
+        else
+        {
+            m_score = GameObject.Find("scoreman").GetComponent<scoremanager>().s_score;
+        }
+
         entryTemplate.gameObject.SetActive(false);
 
         highscoreEntryList = new List<HighscoreEntry>()
