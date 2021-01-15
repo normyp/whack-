@@ -385,7 +385,7 @@ GameObject:
   - component: {fileID: 258126717}
   - component: {fileID: 258126716}
   m_Layer: 0
-  m_Name: rocks-1246668_1920
+  m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
