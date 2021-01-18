@@ -8,6 +8,7 @@ public class highscoretable : MonoBehaviour
     private Transform entryContainer;
     private Transform entryTemplate;
     private List<Transform> highscoreEntryTransformList;
+    private List<HighscoreEntry> highscoreEntryList;
     private int m_score;
     private void Awake()
     {
@@ -20,11 +21,21 @@ public class highscoretable : MonoBehaviour
         else
         {
             m_score = GameObject.Find("scoreman").GetComponent<scoremanager>().s_score;
+           //AddHighscore(m_score, "PNO");
         }
-
-        AddHighscore(m_score, "PNO");
         entryTemplate.gameObject.SetActive(false);
-
+        /*highscoreEntryList = new List<HighscoreEntry>()
+        {
+            new HighscoreEntry {score = 68212, name = "PNO"},
+            new HighscoreEntry {score = 123123, name = "AAA"},
+            new HighscoreEntry {score = 123, name = "CRK"},
+            new HighscoreEntry {score = 3, name = "BMM"},
+            new HighscoreEntry {score = 4444, name = "NIT"},
+            new HighscoreEntry {score = 998, name = "TUN"},
+            new HighscoreEntry {score = 774, name = "ABC"},
+            new HighscoreEntry {score = 659, name = "FTT"},
+            new HighscoreEntry {score = 80, name = "YJA"},
+        };*/
         string jsonString = PlayerPrefs.GetString(("highscoreTable"));
         Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
 
@@ -47,11 +58,11 @@ public class highscoretable : MonoBehaviour
             CreateHighscoreEntryTransform(highscoreEntry, entryContainer, highscoreEntryTransformList);
         }
 
-        /*Highscores highscores = new Highscores {highscoreEntryList = highscoreEntryList};
-        string json = JsonUtility.ToJson(highscores);
+        //Highscores highscores = new Highscores {highscoreEntryList = highscoreEntryList};
+        /*string json = JsonUtility.ToJson(highscores);
         PlayerPrefs.SetString("highscoreTable", json);
-        PlayerPrefs.Save();
-        Debug.Log(PlayerPrefs.GetString("highscoreTable"));*/
+        PlayerPrefs.Save();*/
+        Debug.Log(PlayerPrefs.GetString("highscoreTable"));
     }
 
     private void AddHighscore(int score, string name)
@@ -67,7 +78,12 @@ public class highscoretable : MonoBehaviour
         PlayerPrefs.SetString("highscoreTable", json);
         PlayerPrefs.Save();
     }
-    
+
+    private void DeleteHighscore(string name)
+    {
+        PlayerPrefs.DeleteKey(name);
+    }
+
     private void CreateHighscoreEntryTransform(HighscoreEntry highscoreEntry, Transform container, List<Transform> transformList)
     {   
         float templateHeight = 30f;
