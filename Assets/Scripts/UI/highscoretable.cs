@@ -53,11 +53,17 @@ public class highscoretable : MonoBehaviour
             }
         }
         highscoreEntryTransformList = new List<Transform>();
+        Debug.Log(highscores.highscoreEntryList.Count);
+        int count = 0;
         foreach (HighscoreEntry highscoreEntry in highscores.highscoreEntryList)
         {
-            CreateHighscoreEntryTransform(highscoreEntry, entryContainer, highscoreEntryTransformList);
+            count++;
+            if (count <= 5)
+            {
+                CreateHighscoreEntryTransform(highscoreEntry, entryContainer, highscoreEntryTransformList);
+            }
         }
-
+        
         //Highscores highscores = new Highscores {highscoreEntryList = highscoreEntryList};
         /*string json = JsonUtility.ToJson(highscores);
         PlayerPrefs.SetString("highscoreTable", json);
@@ -65,7 +71,7 @@ public class highscoretable : MonoBehaviour
         Debug.Log(PlayerPrefs.GetString("highscoreTable"));
     }
 
-    private void AddHighscore(int score, string name)
+    public void AddHighscore(int score, string name)
     {
         HighscoreEntry highscoreEntry = new HighscoreEntry{score = score, name = name};
         
