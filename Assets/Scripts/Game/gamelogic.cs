@@ -62,7 +62,11 @@ public class gamelogic : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         other = moles[selectedMole];
-
+        lives gameMan = GameObject.FindWithTag("gameMan").GetComponent<lives>();
+        if (gameMan._lives <= 0)
+        {
+            SceneManager.LoadScene("DeathScreen");
+        }
         if (other.GetComponent<hit>().whacked == true) //If whacked is true
             {
                 other.GetComponent<hit>().whacked = false;
