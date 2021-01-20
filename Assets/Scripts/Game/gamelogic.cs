@@ -65,7 +65,7 @@ public class gamelogic : MonoBehaviour {
         lives gameMan = GameObject.FindWithTag("gameMan").GetComponent<lives>();
         if (gameMan._lives <= 0)
         {
-            SceneManager.LoadScene("DeathScreen");
+            SceneManager.LoadScene("Leaderboard");
         }
         if (other.GetComponent<hit>().whacked == true) //If whacked is true
             {
