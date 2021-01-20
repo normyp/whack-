@@ -10,7 +10,7 @@ public class UI_InputWindow : MonoBehaviour
 {
     private Button_UI okBtn, cancelBtn;
     //private TextMeshPro titleText;
-    public TMP_InputField inputField;
+    public InputField inputField;
     private GameObject gameMan;
     private int m_score;
     private void Awake()
@@ -18,8 +18,7 @@ public class UI_InputWindow : MonoBehaviour
         okBtn = transform.Find("okBtn").GetComponent<Button_UI>();
         cancelBtn = transform.Find("cancelBtn").GetComponent<Button_UI>();
         //titleText = transform.Find("titleText").GetComponent<TextMeshPro>();
-        inputField = transform.Find("inputField").GetComponent<TMP_InputField>();
-        Hide();
+        inputField = transform.Find("inputField").GetComponent<InputField>();
     }
 
     private void Update()

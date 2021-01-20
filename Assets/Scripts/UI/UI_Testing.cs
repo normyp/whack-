@@ -16,8 +16,7 @@ public class UI_Testing : MonoBehaviour
     private void Start()
     {
         _highscoretable = GameObject.Find("HighscoreTable").GetComponent<highscoretable>();
-        transform.Find("submitScoreBtn").GetComponent<Button_UI>().ClickFunc = ( ) => { 
-            inputWindow.Show( "Enter name", "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 3,
+        inputWindow.Show( "Enter name", "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 3,
                 () =>
             {
                 CMDebug.TextPopupMouse("Cancel!");
@@ -33,7 +32,6 @@ public class UI_Testing : MonoBehaviour
                     _highscoretable.AddHighscore(m_score, inputText);
                 }
             });
-        };
     }
 
     private void Update()
