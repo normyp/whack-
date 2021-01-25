@@ -11,18 +11,23 @@ public class gamelogic : MonoBehaviour {
     public List<GameObject> moles = new List<GameObject>();
     
     public float timer = 0.0f;
-
+    public float m_timer = 0.0f;
+    public float randomTime;
+    
     public int selectedMole;
 
     public int score;
     public int oldMole;
 
     bool spawned = false;
+    private bool beingHandled = false;
+    public bool spawning = false;
 
     GameObject other;
 
     void Start()
     {
+        randomTime = Random.Range(0.75f, 2.5f);
         for(int x = 0; x <= 8; x++)
         {
             //Adds all the spawns to the list
@@ -53,10 +58,17 @@ public class gamelogic : MonoBehaviour {
     {
         oldMole = selectedMole;
         while(oldMole == selectedMole){
-            Debug.Log("New mole chosen");
             selectedMole = Random.Range(0, 9);
         }
         return selectedMole;
+    }
+
+    private IEnumerator DelaySpawn()
+    {
+        beingHandled = true;
+        yield return new WaitForSeconds(2.0f);
+        Debug.Log("Waiting...");
+        beingHandled = false;
     }
 
 	// Update is called once per frame
@@ -65,9 +77,9 @@ public class gamelogic : MonoBehaviour {
         lives gameMan = GameObject.FindWithTag("gameMan").GetComponent<lives>();
         if (gameMan._lives <= 0)
         {
-            SceneManager.LoadScene("Leaderboard");
+            //SceneManager.LoadScene("Leaderboard");
         }
-        if (other.GetComponent<hit>().whacked == true) //If whacked is true
+        if (other.GetComponent<hit>().whacked == true && !spawning) //If whacked is true
             {
                 other.GetComponent<hit>().whacked = false;
                 timer = 0.0f;
@@ -75,22 +87,30 @@ public class gamelogic : MonoBehaviour {
                 //Now spawn new mole
                 selectedMole = newnumber();
                 moles[selectedMole].GetComponent<hit>().poof.SetActive(false);
-                moles[selectedMole].SetActive(true);
-                
+                spawning = true;
             }
             //Mole missed
-	    else if (timer >= 2.0f) //If whacked is false
+	    else if (timer >= 2.0f && !spawning) //If whacked is false
 	        {
                 moles[selectedMole].SetActive(false);      
                          
                 LoseLife();
                 selectedMole = newnumber();
-                moles[selectedMole].SetActive(true);
-               
+                spawning = true;
                 timer = 0.0f;
-	        }
-	        timer += Time.deltaTime;
-	        //Debug.Log("Timer is at: " +  timer);
+                m_timer = 2.0f;
+            }
+        if (m_timer >= 4.0f)
+        {
+            moles[selectedMole].SetActive(true);
+            m_timer = 0.0f;
+            timer = 0.0f;
+            spawning = false;
+        }
+
+        m_timer += Time.deltaTime;
+        timer += Time.deltaTime;
+        //Debug.Log("Timer is at: " +  timer);
 
            
     }
