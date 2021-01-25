@@ -13,6 +13,7 @@ public class gamelogic : MonoBehaviour {
     public float timer = 0.0f;
     public float m_timer = 0.0f;
     public float randomTime;
+    public float randomSpawnTime;
     
     public int selectedMole;
 
@@ -28,6 +29,7 @@ public class gamelogic : MonoBehaviour {
     void Start()
     {
         randomTime = Random.Range(4.0f, 6.0f);
+        randomSpawnTime = Random.Range(0.75f, 2.0f);
         for(int x = 0; x <= 8; x++)
         {
             //Adds all the spawns to the list
@@ -89,9 +91,10 @@ public class gamelogic : MonoBehaviour {
                 moles[selectedMole].GetComponent<hit>().poof.SetActive(false);
                 spawning = true;
                 randomTime = Random.Range(4.0f, 6.0f);
+                randomSpawnTime = Random.Range(0.75f, 2.0f);
             }
             //Mole missed
-	    else if (timer >= 2.0f && !spawning) //If whacked is false
+	    else if (timer >= randomSpawnTime && !spawning) //If whacked is false
 	        {
                 moles[selectedMole].SetActive(false);      
                          
@@ -101,6 +104,7 @@ public class gamelogic : MonoBehaviour {
                 timer = 0.0f;
                 m_timer = 2.0f;
                 randomTime = Random.Range(4.0f, 6.0f);
+                randomSpawnTime = Random.Range(0.75f, 2.0f);
             }
         if (m_timer >= randomTime)
         {
