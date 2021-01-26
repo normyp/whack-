@@ -91,8 +91,8 @@ public class gamelogic : MonoBehaviour {
                 selectedMole = newnumber();
                 moles[selectedMole].GetComponent<hit>().poof.SetActive(false);
                 spawning = true;
-                randomTime = Random.Range(4.0f, 6.0f);
-                randomSpawnTime = Random.Range(0.75f, 2.0f);
+                randomTime = Random.Range(1.25f, 2.75f);
+                randomSpawnTime = Random.Range(0.25f, 1.25f);
             }
             //Mole missed
 	    else if (timer >= randomSpawnTime && !spawning) //If whacked is false
@@ -103,9 +103,9 @@ public class gamelogic : MonoBehaviour {
                 selectedMole = newnumber();
                 spawning = true;
                 timer = 0.0f;
-                m_timer = 2.0f;
-                randomTime = Random.Range(4.0f, 6.0f);
-                randomSpawnTime = Random.Range(0.75f, 2.0f);
+                m_timer = 1.25f;
+                randomTime = Random.Range(1.25f, 2.75f);
+                randomSpawnTime = Random.Range(0.25f, 1.25f);
             }
         if (m_timer >= randomTime)
         {
