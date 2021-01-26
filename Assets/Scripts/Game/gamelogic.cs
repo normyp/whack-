@@ -53,6 +53,7 @@ public class gamelogic : MonoBehaviour {
     {
         GameObject gameMan = GameObject.FindWithTag("gameMan"); //Creates an instance of game manager so that the component lives can be used
         lives player = gameMan.GetComponent<lives>(); //Creates an instance of the lives script so that lives can be accessed
+        
         player._lives--; 
     }
 
@@ -79,7 +80,7 @@ public class gamelogic : MonoBehaviour {
         lives gameMan = GameObject.FindWithTag("gameMan").GetComponent<lives>();
         if (gameMan._lives <= 0)
         {
-            //SceneManager.LoadScene("Leaderboard");
+            SceneManager.LoadScene("Leaderboard");
         }
         if (other.GetComponent<hit>().whacked == true && !spawning) //If whacked is true
             {
