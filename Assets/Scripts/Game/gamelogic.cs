@@ -12,8 +12,12 @@ public class gamelogic : MonoBehaviour {
     
     public float timer = 0.0f;
     public float m_timer = 0.0f;
-    public float randomTime;
-    public float randomSpawnTime;
+    public float randomDespawnTime;
+    public float randomAliveTime;
+    public float minAliveTime = 0.75f;
+    public float maxAliveTime = 1.25f;
+    public float minDespawnTime = 1.25f;
+    public float maxDespawnTime = 2.75f;
     
     public int selectedMole;
 
@@ -28,8 +32,12 @@ public class gamelogic : MonoBehaviour {
 
     void Start()
     {
-        randomTime = Random.Range(4.0f, 6.0f);
-        randomSpawnTime = Random.Range(0.75f, 2.0f);
+        minAliveTime = 0.75f;
+        maxAliveTime = 1.25f;
+        minDespawnTime = 1.25f;
+        maxDespawnTime = 2.75f;
+        randomDespawnTime = Random.Range(minDespawnTime, maxDespawnTime);
+        randomAliveTime = Random.Range(minAliveTime, maxAliveTime);
         for(int x = 0; x <= 8; x++)
         {
             //Adds all the spawns to the list
@@ -80,7 +88,7 @@ public class gamelogic : MonoBehaviour {
         lives gameMan = GameObject.FindWithTag("gameMan").GetComponent<lives>();
         if (gameMan._lives <= 0)
         {
-            SceneManager.LoadScene("Leaderboard");
+            //SceneManager.LoadScene("Leaderboard");
         }
         if (other.GetComponent<hit>().whacked == true && !spawning) //If whacked is true
             {
@@ -91,11 +99,11 @@ public class gamelogic : MonoBehaviour {
                 selectedMole = newnumber();
                 moles[selectedMole].GetComponent<hit>().poof.SetActive(false);
                 spawning = true;
-                randomTime = Random.Range(1.25f, 2.75f);
-                randomSpawnTime = Random.Range(0.25f, 1.25f);
+                randomDespawnTime = Random.Range(minDespawnTime, maxDespawnTime);
+                randomAliveTime = Random.Range(minAliveTime, maxAliveTime);
             }
             //Mole missed
-	    else if (timer >= randomSpawnTime && !spawning) //If whacked is false
+	    else if (timer >= randomAliveTime && !spawning) //If whacked is false
 	        {
                 moles[selectedMole].SetActive(false);      
                          
@@ -104,10 +112,10 @@ public class gamelogic : MonoBehaviour {
                 spawning = true;
                 timer = 0.0f;
                 m_timer = 1.25f;
-                randomTime = Random.Range(1.25f, 2.75f);
-                randomSpawnTime = Random.Range(0.25f, 1.25f);
+                randomDespawnTime = Random.Range(minDespawnTime, maxDespawnTime);
+                randomAliveTime = Random.Range(minAliveTime, maxAliveTime);
             }
-        if (m_timer >= randomTime)
+        if (m_timer >= randomDespawnTime)
         {
             moles[selectedMole].SetActive(true);
             m_timer = 0.0f;
