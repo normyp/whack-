@@ -12,6 +12,7 @@ public class gamelogic : MonoBehaviour {
     
     public float timer = 0.0f;
     public float m_timer = 0.0f;
+    public float game_timer;
     public float randomDespawnTime;
     public float randomAliveTime;
     public float minAliveTime = 0.75f;
@@ -32,6 +33,7 @@ public class gamelogic : MonoBehaviour {
 
     void Start()
     {
+        game_timer = 0.0f;
         minAliveTime = 0.75f;
         maxAliveTime = 1.25f;
         minDespawnTime = 1.25f;
@@ -123,6 +125,15 @@ public class gamelogic : MonoBehaviour {
             spawning = false;
         }
 
+        if (game_timer >= 5.0f)
+        {
+            minAliveTime = 0.5f;
+            maxAliveTime = 1.0f;
+            minDespawnTime = 1.0f;
+            maxDespawnTime = 2.25f;
+        }
+
+        game_timer += Time.deltaTime;
         m_timer += Time.deltaTime;
         timer += Time.deltaTime;
         //Debug.Log("Timer is at: " +  timer);
