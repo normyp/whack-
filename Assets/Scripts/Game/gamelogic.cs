@@ -90,7 +90,7 @@ public class gamelogic : MonoBehaviour {
         lives gameMan = GameObject.FindWithTag("gameMan").GetComponent<lives>();
         if (gameMan._lives <= 0)
         {
-            //SceneManager.LoadScene("Leaderboard");
+            SceneManager.LoadScene("Leaderboard");
         }
         if (other.GetComponent<hit>().whacked == true && !spawning) //If whacked is true
             {
@@ -127,9 +127,16 @@ public class gamelogic : MonoBehaviour {
 
         if (game_timer >= 5.0f)
         {
-            minAliveTime = 0.5f;
+            minAliveTime = 0.75f;
             maxAliveTime = 1.0f;
             minDespawnTime = 1.0f;
+            maxDespawnTime = 2.25f;
+        }
+        if (game_timer >= 10.0f)
+        {
+            minAliveTime = 0.75f;
+            maxAliveTime = 0.95f;
+            minDespawnTime = 0.95f;
             maxDespawnTime = 2.25f;
         }
 
