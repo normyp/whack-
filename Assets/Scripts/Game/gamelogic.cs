@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class gamelogic : MonoBehaviour {
 
     public List<GameObject> moles = new List<GameObject>();
     public GameObject countdownScreen;
-    
+    public GameObject countdownNumber;
     public float timer = 0.0f;
     public float m_timer = 0.0f;
     public float game_timer;
@@ -93,11 +94,13 @@ public class gamelogic : MonoBehaviour {
         if (countdown <= 0.0f)
         {
             countdownScreen.SetActive(false);
+            GameObject.Find("countdown").SetActive(false);
             other = moles[selectedMole];
             lives gameMan = GameObject.FindWithTag("gameMan").GetComponent<lives>();
             if (gameMan._lives <= 0)
             {
                 SceneManager.LoadScene("Leaderboard");
+                
             }
 
             if (other.GetComponent<hit>().whacked == true && !spawning) //If whacked is true
@@ -157,6 +160,10 @@ public class gamelogic : MonoBehaviour {
         }
         else
         {
+            float newNum;
+            newNum = Mathf.Round(countdown);
+            GameObject.Find("countdown").GetComponent<Text>().text = newNum.ToString();
+            
             countdownScreen.SetActive(true);
             countdown -= Time.deltaTime;
         }
