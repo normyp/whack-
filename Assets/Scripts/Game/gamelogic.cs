@@ -11,17 +11,16 @@ public class gamelogic : MonoBehaviour {
 
     public List<GameObject> moles = new List<GameObject>();
     public GameObject countdownScreen;
-    public GameObject countdownNumber;
-    public float timer = 0.0f;
-    public float m_timer = 0.0f;
-    public float game_timer;
+    public float timer;
+    public float despawn_timer;
+    //public float game_timer;
     public float countdown;
     public float randomDespawnTime;
     public float randomAliveTime;
-    public float minAliveTime = 0.75f;
-    public float maxAliveTime = 1.25f;
-    public float minDespawnTime = 1.25f;
-    public float maxDespawnTime = 2.75f;
+    public float minAliveTime;
+    public float maxAliveTime;
+    public float minDespawnTime;
+    public float maxDespawnTime;
     
     public int selectedMole;
 
@@ -31,20 +30,25 @@ public class gamelogic : MonoBehaviour {
     bool spawned = false;
     private bool newgame;
     private bool beingHandled = false;
+
+    bool firsttime;
     public bool spawning = false;
+
 
     GameObject other;
 
     void Start()
     {
+        firsttime = true;
         countdown = 3.0f;
-        game_timer = 0.0f;
-        minAliveTime = 0.75f;
+        //game_timer = 0.0f;
+        minAliveTime = 0.75f; //ATM timer = 5.0 and despawntimer = 9.0f
         maxAliveTime = 1.25f;
         minDespawnTime = 1.25f;
         maxDespawnTime = 2.75f;
         randomDespawnTime = Random.Range(minDespawnTime, maxDespawnTime);
         randomAliveTime = Random.Range(minAliveTime, maxAliveTime);
+        
         for(int x = 0; x <= 8; x++)
         {
             //Adds all the spawns to the list
@@ -93,30 +97,36 @@ public class gamelogic : MonoBehaviour {
 	void Update () {
         if (countdown <= 0.0f)
         {
-            countdownScreen.SetActive(false);
-            GameObject.Find("countdown").SetActive(false);
-            other = moles[selectedMole];
+            if(firsttime){
+                firsttime = false;
+                countdownScreen.SetActive(false);
+                GameObject.Find("countdown").SetActive(false);
+                other = moles[selectedMole];    
+            }
+
             lives gameMan = GameObject.FindWithTag("gameMan").GetComponent<lives>();
-            if (gameMan._lives <= 0)
+            /*if (gameMan._lives <= 0)
             {
                 SceneManager.LoadScene("Leaderboard");
                 
-            }
-
+            }*/
+            other = moles[selectedMole];    
             if (other.GetComponent<hit>().whacked == true && !spawning) //If whacked is true
             {
+                spawning = true;
                 other.GetComponent<hit>().whacked = false;
                 timer = 0.0f;
+                despawn_timer = 5.0f;
 
                 //Now spawn new mole
                 selectedMole = newnumber();
                 moles[selectedMole].GetComponent<hit>().poof.SetActive(false);
-                spawning = true;
-                randomDespawnTime = Random.Range(minDespawnTime, maxDespawnTime);
-                randomAliveTime = Random.Range(minAliveTime, maxAliveTime);
+                
+                //randomDespawnTime = Random.Range(minDespawnTime, maxDespawnTime);
+                //randomAliveTime = Random.Range(minAliveTime, maxAliveTime);
             }
             //Mole missed
-            else if (timer >= randomAliveTime && !spawning) //If whacked is false
+            else if (timer >= 5.0f && !spawning) //If whacked is false
             {
                 moles[selectedMole].SetActive(false);
 
@@ -124,20 +134,22 @@ public class gamelogic : MonoBehaviour {
                 selectedMole = newnumber();
                 spawning = true;
                 timer = 0.0f;
-                m_timer = 1.25f;
+                despawn_timer = 5.0f;
                 randomDespawnTime = Random.Range(minDespawnTime, maxDespawnTime);
                 randomAliveTime = Random.Range(minAliveTime, maxAliveTime);
             }
 
-            if (m_timer >= randomDespawnTime)
+            else if (despawn_timer >= 9.0f && spawning)
             {
+                selectedMole = newnumber();
                 moles[selectedMole].SetActive(true);
-                m_timer = 0.0f;
+
                 timer = 0.0f;
+                despawn_timer = 5.0f;
                 spawning = false;
             }
 
-            if (game_timer >= 5.0f)
+            /*if (game_timer >= 5.0f)
             {
                 minAliveTime = 0.75f;
                 maxAliveTime = 1.0f;
@@ -151,10 +163,10 @@ public class gamelogic : MonoBehaviour {
                 maxAliveTime = 0.95f;
                 minDespawnTime = 0.95f;
                 maxDespawnTime = 2.25f;
-            }
+            }*/
 
-            game_timer += Time.deltaTime;
-            m_timer += Time.deltaTime;
+            //game_timer += Time.deltaTime;
+            despawn_timer += Time.deltaTime;
             timer += Time.deltaTime;
             //Debug.Log("Timer is at: " +  timer);
         }
