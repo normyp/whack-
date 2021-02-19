@@ -11,9 +11,12 @@ public class gamelogic : MonoBehaviour {
 
     public List<GameObject> moles = new List<GameObject>();
     public GameObject countdownScreen;
+    public GameObject easybutton;
+    public GameObject medbutton;
+    public GameObject hardbutton;
     public float timer;
     public float despawn_timer;
-    //public float game_timer;
+    public float game_timer;
     public float countdown;
     public float randomDespawnTime;
     public float randomAliveTime;
@@ -27,6 +30,7 @@ public class gamelogic : MonoBehaviour {
     public int score;
     public int oldMole;
 
+    private bool difficultyNotSelected;
     bool spawned = false;
     private bool newgame;
     private bool beingHandled = false;
@@ -39,9 +43,10 @@ public class gamelogic : MonoBehaviour {
 
     void Start()
     {
+        difficultyNotSelected = false;
         firsttime = true;
         countdown = 3.0f;
-        //game_timer = 0.0f;
+        game_timer = 0.0f;
         minAliveTime = 0.75f; //ATM timer = 5.0 and despawntimer = 9.0f
         maxAliveTime = 1.25f;
         minDespawnTime = 1.25f;
@@ -94,7 +99,49 @@ public class gamelogic : MonoBehaviour {
     }
 
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+        if (!difficultyNotSelected)
+        {
+            if (GameObject.Find("Easy button").GetComponent<difficultyButton>().m_difficulty == "Easy")
+            {
+                difficultyNotSelected = true;
+                minAliveTime = 5.0f; //ATM timer = 5.0 and despawntimer = 9.0f
+                maxAliveTime = 7.0f;
+                minDespawnTime = 7.0f;
+                maxDespawnTime = 10.0f;
+                GameObject.Find("Easy button").SetActive(false);
+                GameObject.Find("Medium button").SetActive(false);
+                GameObject.Find("Hard button").SetActive(false);
+            }
+
+            if (GameObject.Find("Medium button").GetComponent<difficultyButton>().m_difficulty == "Medium")
+            {
+                difficultyNotSelected = true;
+                minAliveTime = 2.0f; //ATM timer = 5.0 and despawntimer = 9.0f
+                maxAliveTime = 3.0f;
+                minDespawnTime = 3.0f;
+                maxDespawnTime = 4.0f;
+                GameObject.Find("Easy button").SetActive(false);
+                GameObject.Find("Medium button").SetActive(false);
+                GameObject.Find("Hard button").SetActive(false);
+            }
+
+            if (GameObject.Find("Hard button").GetComponent<difficultyButton>().m_difficulty == "Hard")
+            {
+                difficultyNotSelected = true;
+                minAliveTime = 0.75f; //ATM timer = 5.0 and despawntimer = 9.0f
+                maxAliveTime = 1.25f;
+                minDespawnTime = 1.25f;
+                maxDespawnTime = 2.75f;
+                GameObject.Find("Easy button").SetActive(false);
+                GameObject.Find("Medium button").SetActive(false);
+                GameObject.Find("Hard button").SetActive(false);
+            }
+        }
+
+        if(difficultyNotSelected)
+    {
         if (countdown <= 0.0f)
         {
             if(firsttime){
@@ -105,28 +152,28 @@ public class gamelogic : MonoBehaviour {
             }
 
             lives gameMan = GameObject.FindWithTag("gameMan").GetComponent<lives>();
-            /*if (gameMan._lives <= 0)
+            if (gameMan._lives <= 0)
             {
                 SceneManager.LoadScene("Leaderboard");
                 
-            }*/
+            }
             other = moles[selectedMole];    
             if (other.GetComponent<hit>().whacked == true && !spawning) //If whacked is true
             {
                 spawning = true;
                 other.GetComponent<hit>().whacked = false;
                 timer = 0.0f;
-                despawn_timer = 5.0f;
+                despawn_timer = randomAliveTime;
 
                 //Now spawn new mole
                 selectedMole = newnumber();
                 moles[selectedMole].GetComponent<hit>().poof.SetActive(false);
                 
-                //randomDespawnTime = Random.Range(minDespawnTime, maxDespawnTime);
-                //randomAliveTime = Random.Range(minAliveTime, maxAliveTime);
+                randomDespawnTime = Random.Range(minDespawnTime, maxDespawnTime);
+                randomAliveTime = Random.Range(minAliveTime, maxAliveTime);
             }
             //Mole missed
-            else if (timer >= 5.0f && !spawning) //If whacked is false
+            else if (timer >= randomAliveTime && !spawning) //If whacked is false
             {
                 moles[selectedMole].SetActive(false);
 
@@ -134,22 +181,22 @@ public class gamelogic : MonoBehaviour {
                 selectedMole = newnumber();
                 spawning = true;
                 timer = 0.0f;
-                despawn_timer = 5.0f;
+                despawn_timer = randomAliveTime;
                 randomDespawnTime = Random.Range(minDespawnTime, maxDespawnTime);
                 randomAliveTime = Random.Range(minAliveTime, maxAliveTime);
             }
 
-            else if (despawn_timer >= 9.0f && spawning)
+            else if (despawn_timer >= randomDespawnTime && spawning)
             {
                 selectedMole = newnumber();
                 moles[selectedMole].SetActive(true);
 
                 timer = 0.0f;
-                despawn_timer = 5.0f;
+                despawn_timer = randomAliveTime;
                 spawning = false;
             }
 
-            /*if (game_timer >= 5.0f)
+            if (game_timer >= 5.0f)
             {
                 minAliveTime = 0.75f;
                 maxAliveTime = 1.0f;
@@ -163,7 +210,7 @@ public class gamelogic : MonoBehaviour {
                 maxAliveTime = 0.95f;
                 minDespawnTime = 0.95f;
                 maxDespawnTime = 2.25f;
-            }*/
+            }
 
             //game_timer += Time.deltaTime;
             despawn_timer += Time.deltaTime;
@@ -180,6 +227,14 @@ public class gamelogic : MonoBehaviour {
             countdown -= Time.deltaTime;
         }
 
+    }
+    else
+    {
+        easybutton.SetActive(true);
+        medbutton.SetActive(true);
+        hardbutton.SetActive(true);
+        countdownScreen.SetActive(true);
+    }
     }
 
 }
