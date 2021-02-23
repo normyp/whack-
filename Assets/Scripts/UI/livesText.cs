@@ -14,6 +14,7 @@ public class livestext : MonoBehaviour {
 	private float x = 0.0f;
 	// Use this for initialization
 	void Start () {
+		player = gameMan.GetComponent<lives>(); //Creates an instance of the spawner script so that score can be accessed
 		text = GetComponent<Text>();
 	}
 	
@@ -21,8 +22,7 @@ public class livestext : MonoBehaviour {
 	void Update () {
 
 		GameObject gameMan = GameObject.FindWithTag("gameMan"); //Creates an instance of mole manager so that the component spawner can be used
-        player = gameMan.GetComponent<lives>(); //Creates an instance of the spawner script so that score can be accessed
-        text.text = "Lives: ";
+		text.text = "Lives: ";
 
 	}
 

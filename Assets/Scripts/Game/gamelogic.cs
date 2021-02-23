@@ -25,6 +25,10 @@ public class gamelogic : MonoBehaviour {
     public float maxAliveTime;
     public float minDespawnTime;
     public float maxDespawnTime;
+
+    public Texture2D cursorTexture;
+    public CursorMode cursorMode = CursorMode.Auto;
+    public Vector2 hotSpot = Vector2.zero;
     
     public int selectedMole;
 
@@ -54,6 +58,8 @@ public class gamelogic : MonoBehaviour {
         maxDespawnTime = 2.75f;
         randomDespawnTime = Random.Range(minDespawnTime, maxDespawnTime);
         randomAliveTime = Random.Range(minAliveTime, maxAliveTime);
+        
+        Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
         
         for(int x = 0; x <= 8; x++)
         {
