@@ -157,6 +157,7 @@ MonoBehaviour:
   easybutton: {fileID: 26912900}
   medbutton: {fileID: 1645462709}
   hardbutton: {fileID: 540900316}
+  lives: {fileID: 2024252694}
   timer: 0
   despawn_timer: 0
   game_timer: 0
@@ -2901,6 +2902,7 @@ GameObject:
   - component: {fileID: 1380836274}
   - component: {fileID: 1380836276}
   - component: {fileID: 1380836275}
+  - component: {fileID: 1380836277}
   m_Layer: 5
   m_Name: countdown
   m_TagString: Untagged
@@ -2924,8 +2926,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 64, y: -56}
-  m_SizeDelta: {x: 318.48, y: 203.1}
+  m_AnchoredPosition: {x: -1.5913, y: -30.7373}
+  m_SizeDelta: {x: 187.2974, y: 152.5746}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1380836275
 MonoBehaviour:
@@ -2960,7 +2962,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1:00
+  m_Text: 
 --- !u!222 &1380836276
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2969,6 +2971,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380836273}
   m_CullTransparentMesh: 1
+--- !u!114 &1380836277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380836273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c08a59bcb300bf41a75a86e8b1136ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  countdown: {fileID: 1380836273}
 --- !u!1001 &1429321978
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3669,7 +3684,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2024252695
 RectTransform:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ public class gamelogic : MonoBehaviour {
     public GameObject easybutton;
     public GameObject medbutton;
     public GameObject hardbutton;
+    public GameObject lives;
     public float timer;
     public float despawn_timer;
     public float game_timer;
@@ -30,7 +31,7 @@ public class gamelogic : MonoBehaviour {
     public int score;
     public int oldMole;
 
-    private bool difficultyNotSelected;
+    private bool difficultySelected;
     bool spawned = false;
     private bool newgame;
     private bool beingHandled = false;
@@ -43,7 +44,7 @@ public class gamelogic : MonoBehaviour {
 
     void Start()
     {
-        difficultyNotSelected = false;
+        difficultySelected = false;
         firsttime = true;
         countdown = 3.0f;
         game_timer = 0.0f;
@@ -101,23 +102,23 @@ public class gamelogic : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (!difficultyNotSelected)
+        if (!difficultySelected)
         {
             if (GameObject.Find("Easy button").GetComponent<difficultyButton>().m_difficulty == "Easy")
             {
-                difficultyNotSelected = true;
-                minAliveTime = 5.0f; //ATM timer = 5.0 and despawntimer = 9.0f
-                maxAliveTime = 7.0f;
-                minDespawnTime = 7.0f;
-                maxDespawnTime = 10.0f;
+                difficultySelected = true;
+                minAliveTime = 4.0f; //ATM timer = 5.0 and despawntimer = 9.0f
+                maxAliveTime = 5.5f;
+                minDespawnTime = 5.5f;
+                maxDespawnTime = 6.0f;
                 GameObject.Find("Easy button").SetActive(false);
                 GameObject.Find("Medium button").SetActive(false);
                 GameObject.Find("Hard button").SetActive(false);
             }
 
-            if (GameObject.Find("Medium button").GetComponent<difficultyButton>().m_difficulty == "Medium")
+            else if (GameObject.Find("Medium button").GetComponent<difficultyButton>().m_difficulty == "Medium")
             {
-                difficultyNotSelected = true;
+                difficultySelected = true;
                 minAliveTime = 2.0f; //ATM timer = 5.0 and despawntimer = 9.0f
                 maxAliveTime = 3.0f;
                 minDespawnTime = 3.0f;
@@ -127,9 +128,9 @@ public class gamelogic : MonoBehaviour {
                 GameObject.Find("Hard button").SetActive(false);
             }
 
-            if (GameObject.Find("Hard button").GetComponent<difficultyButton>().m_difficulty == "Hard")
+            else if (GameObject.Find("Hard button").GetComponent<difficultyButton>().m_difficulty == "Hard")
             {
-                difficultyNotSelected = true;
+                difficultySelected = true;
                 minAliveTime = 0.75f; //ATM timer = 5.0 and despawntimer = 9.0f
                 maxAliveTime = 1.25f;
                 minDespawnTime = 1.25f;
@@ -140,12 +141,13 @@ public class gamelogic : MonoBehaviour {
             }
         }
 
-        if(difficultyNotSelected)
+        if(difficultySelected)
     {
         if (countdown <= 0.0f)
         {
             if(firsttime){
                 firsttime = false;
+                lives.SetActive(true);
                 countdownScreen.SetActive(false);
                 GameObject.Find("countdown").SetActive(false);
                 other = moles[selectedMole];    
