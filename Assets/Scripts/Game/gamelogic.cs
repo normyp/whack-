@@ -43,7 +43,7 @@ public class gamelogic : MonoBehaviour {
     bool firsttime;
     public bool spawning = false;
 
-
+    public AudioSource audio;
     GameObject other;
 
     void Start()
@@ -58,7 +58,7 @@ public class gamelogic : MonoBehaviour {
         maxDespawnTime = 2.75f;
         randomDespawnTime = Random.Range(minDespawnTime, maxDespawnTime);
         randomAliveTime = Random.Range(minAliveTime, maxAliveTime);
-        
+
         Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
         
         for(int x = 0; x <= 8; x++)
@@ -173,6 +173,7 @@ public class gamelogic : MonoBehaviour {
                 timer = 0.0f;
                 despawn_timer = randomAliveTime;
 
+                audio.Play();
                 //Now spawn new mole
                 selectedMole = newnumber();
                 moles[selectedMole].GetComponent<hit>().poof.SetActive(false);
