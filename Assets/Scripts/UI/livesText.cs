@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class livestext : MonoBehaviour {
+public class livesText : MonoBehaviour {
 
 	Text text;
 	public Texture tex;
